@@ -20,7 +20,8 @@ void	n_sucks(char *str)
 	{
 		if (*str == '\n')
 		{
-			str++;
+			while (*str == '\n')
+				str++;
 			return ;
 		}
 		str++;
