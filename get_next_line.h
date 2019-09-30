@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjosephi <jjosephi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/23 16:50:44 by jjosephi          #+#    #+#             */
-/*   Updated: 2019/09/27 21:33:26 by jjosephi         ###   ########.fr       */
+/*   Created: 2019/09/30 11:43:38 by jjosephi          #+#    #+#             */
+/*   Updated: 2019/09/30 13:21:12 by jjosephi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 42
-# define FD_MAX 4094
+# define FD_NOTMAX 4094
 # define TRUE 1
 # define FALSE 0
 # include "./libft/libft.h"
