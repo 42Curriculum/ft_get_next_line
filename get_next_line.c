@@ -14,44 +14,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-void	n_sucks(char *str)
-{
-	while (*str)
-	{
-		if (*str == '\n')
-		{
-			while (*str == '\n')
-				str++;
-			return ;
-		}
-		str++;
-	}
-}
-
-int 		skip_newline(char *str, int n)
-{
-	while (str[n] == '\n')
-	{
-		n++;
-	}
-	return(n);
-}
-
-char		*copy_to_newline(char *str)
-{
-	size_t i;
-	char *s;
-	i = 0;
-
-	while (str[i] != '\n')
-	{
-		i++;
-	}
-	s = ft_strnew(i);
-	s = ft_strncpy(s, str, i);
-	return(s);
-}
-
 int			check_line(char *str)
 {
 	int i;
@@ -60,13 +22,32 @@ int			check_line(char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			return (i);
+			return (TRUE);
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
-int			get_next_line(const int fd, char **line)
+void	skip_n(char **str)
+{
+	while (**str == '\n' )
+		*str+=1;
+}
+
+char	*cpy_nn(char *line, char **next_line)
+{
+	int i;
+
+	i = -1;
+	while ((*next_line)[++i] != '\n' && (*next_line)[++i] !='\0')
+		;
+	line = ft_strnew(i);
+	line = ft_strncpy(line, *next_line, i);
+	*next_line += i;
+	return (line);
+}
+
+int		get_next_line(const int fd, char **line)
 {
 	char 		buffer[BUFF_SIZE + 1];
 	static char **next_line;
@@ -78,25 +59,28 @@ int			get_next_line(const int fd, char **line)
 		next_line = (char **)malloc(FD_MAX * sizeof(next_line) + 1);
 	if (!(next_line[fd]))
 		next_line[fd] = "";
-	else if ((n = check_line(next_line[fd])))
+	else if ((n = check_line(next_line[fd]) == TRUE))
 	{
-		*line = copy_to_newline(next_line[fd]);
-		n_sucks(next_line[fd]);
-		next_line[fd] += (n = skip_newline(next_line[fd],n));
+		skip_n(&next_line[fd]);
+		*line = cpy_nn(*line,&next_line[fd]);
+		printf("Line %s \n", *line);
+		printf("next line %s \n", next_line[fd]);
 	}
 
 	while ((b = read(fd, buffer, BUFF_SIZE)))
 	{
 		buffer[b] = '\0';
 		next_line[fd] = ft_strjoin(next_line[fd], buffer);
-		//next_line[fd] += (n = skip_newline(next_line[fd],n));
+		skip_n(&next_line[fd]);
 		if ((n = check_line(next_line[fd])))
 		{
-			*line = copy_to_newline(next_line[fd]);
+			*line = cpy_nn(*line, &next_line[fd]);
+			printf("Line %s \n", *line);
+			printf("next line %s \n", next_line[fd]);
 			return (1);
 		}
 	}
-	next_line[fd] += (n = skip_newline(next_line[fd],n));
+
 	*line = next_line[fd];
 	return(0);
 }

@@ -8,16 +8,15 @@ int		main(int argc, char **argv)
 {
 	char *str ;
 	int i;
-
+	//(void)argv;
 	i = open(argv[1], O_RDONLY);
 	if (argc > 1)
 	{
 		get_next_line(i, &str);
-		printf(" Line 1: %s", str);
-		/* get_next_line(i, &str);
-		printf(" Line 2: %s \n", str); */
-		/* get_next_line(i, &str);
-		printf(" Line 3: %s \n", str); */
+		get_next_line(i, &str);
+		//printf(" Line 2: %s \n", str);
+		get_next_line(i, &str);
+		//printf(" Line 3: %s \n", str);
 	}
 	return (0);
 }

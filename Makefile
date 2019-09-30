@@ -14,4 +14,4 @@ NAME = gud
 SECOND = old
 
 all :
-	gcc -Wall -Wextra -Werror get_next_line.c next_line_test.c get_next_line.h libft/libft.a
+	gcc -g -Wall -Wextra -Werror get_next_line.c next_line_test.c get_next_line.h libft/libft.a 

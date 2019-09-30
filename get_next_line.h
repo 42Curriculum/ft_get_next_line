@@ -14,9 +14,11 @@
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 42
 # define FD_MAX 4094
+# define TRUE 1
+# define FALSE 0
 # include "./libft/libft.h"
+# include <unistd.h>
 
 int		get_next_line(const int fd, char **line);
-int		better_get_next_line(const int fd, char **line);
 
 #endif
