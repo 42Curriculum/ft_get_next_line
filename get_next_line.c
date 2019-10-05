@@ -6,7 +6,7 @@
 /*   By: jjosephi <jjosephi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 16:49:46 by jjosephi          #+#    #+#             */
-/*   Updated: 2019/10/04 20:46:42 by jjosephi         ###   ########.fr       */
+/*   Updated: 2019/10/04 21:03:35 by jjosephi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,18 @@ int		norm_hates_me(char **next_line, int fd, char **line)
 		next_line[fd] = NULL;
 		return (1);
 	}
-	return(0);
+	return (0);
 }
+
+int		error_check(int fd, char **line, char *buffer, char **next_line)
+{
+	if (fd < 0 || !line || read(fd, buffer, 0) < 0)
+		return (FALSE);
+	if (!(next_line[fd]))
+		next_line[fd] = ft_strnew(0);
+	return (TRUE);
+}
+
 int		get_next_line(const int fd, char **line)
 {
 	char		buffer[BUFF_SIZE + 1];
@@ -70,15 +80,11 @@ int		get_next_line(const int fd, char **line)
 	int			b;
 	char		*temp;
 
-	if (fd < 0 || !line || read(fd, buffer, 0) < 0)
+	if (error_check(fd, line, buffer, next_line) == FALSE)
 		return (-1);
-	if (!(next_line[fd]))
-		next_line[fd] = ft_strnew(0);
 	while ((b = read(fd, buffer, BUFF_SIZE)))
 	{
 		buffer[b] = '\0';
-		if (ft_strlen(buffer) == 0)
-			return (0);
 		temp = next_line[fd];
 		next_line[fd] = ft_strjoin(next_line[fd], buffer);
 		free(temp);
@@ -92,5 +98,5 @@ int		get_next_line(const int fd, char **line)
 	if (norm_hates_me(next_line, fd, line) == TRUE)
 		return (1);
 	else
-		return(0);
+		return (0);
 }

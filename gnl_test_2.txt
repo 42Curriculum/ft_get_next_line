@@ -1,4 +1,0 @@
-Languages requiring multi-byte characters such as Greek, Arabic, Hebrew, Hindi, Thai, etc, etc
-typically require two bytes per character in UTF-8. 
-Guessing wildly at 5 letters per word,
-I've rounded down from 11 bytes per word
