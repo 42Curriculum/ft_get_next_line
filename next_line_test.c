@@ -13,7 +13,11 @@ int		main(int argc, char **argv)
 	if (argc > 1)
 	{
 		while (get_next_line(i, &str) == 1)
+		{
 			printf("Line 1: %s\n", str);
+			free (str);
+		}
 	}
+
 	return (0);
 }
